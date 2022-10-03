@@ -1,9 +1,11 @@
 import { useState } from "react";
+
 const usePetFilter = () => {
   const ownerAndPetsURL = process.env.REACT_APP_OWNER_PETS_URL;
   const [petsWithFemale, setPetsWithFemale] = useState([]);
   const [petsWithMale, setPetsWithMale] = useState([]);
   const [petType] = useState("cat");
+
   /**fetches the data from the api and performs the business logic */
   const fetchPetsandOwnersHandler = async () => {
     const response = await fetch(ownerAndPetsURL);
@@ -13,6 +15,7 @@ const usePetFilter = () => {
     const data = await response.json();
     transformPetAndOwnerData(data);
   };
+
   /**filters the fetched pet data to femaleOwnedPets and maleOwnedPets array  */
   const transformPetAndOwnerData = (petsAndOwners) => {
     const femaleOwnedPets = [];
@@ -26,6 +29,7 @@ const usePetFilter = () => {
             ...owner.pets
           )
       );
+
       /** sort pets owned by Female and update the state: petsWithFemale */
       if (femaleOwnedPets.length > 0) {
         setPetsWithFemale(getSortedPetsForThePetType(femaleOwnedPets));
@@ -37,10 +41,13 @@ const usePetFilter = () => {
       }
     }
   };
+
   /**Checks if the gender is female*/
   const isFemale = (owner) => {
     return owner.gender.toLowerCase() === "female";
   };
+
+  /**Sorts selected pets*/
   const getSortedPetsForThePetType = (ownedPets) => {
     const pets = [];
     ownedPets.forEach((pet) => {
@@ -53,4 +60,5 @@ const usePetFilter = () => {
 
   return { petsWithFemale, petsWithMale, fetchPetsandOwnersHandler };
 };
+
 export default usePetFilter;

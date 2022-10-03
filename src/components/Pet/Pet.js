@@ -1,4 +1,5 @@
 const Pet = (props) => {
-  return <li>{props.name}</li>;
+  const { name } = props;
+  return <li>{name}</li>;
 };
 export default Pet;

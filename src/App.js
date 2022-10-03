@@ -5,8 +5,10 @@ import Header from "./components/Layout/Header";
 import usePetFilter from "./hook/usePetFilter";
 
 function App() {
+  // destructure required variables and function from custom hook
   const { petsWithFemale, petsWithMale, fetchPetsandOwnersHandler } =
     usePetFilter();
+
   useEffect(() => {
     try {
       fetchPetsandOwnersHandler();
@@ -14,6 +16,7 @@ function App() {
       throw new Error("Could not fetch pet data");
     }
   }, []);
+
   return (
     <div className="App">
       <Header />
